@@ -53,9 +53,8 @@ This repository contains our implementation and extension of the DCASE 2023 Chal
 ├── results/                     # Output CSV files and figures
 ├── logs/
 │   └── experiment_logs.md       # Detailed experiment documentation
-├── report/
-│   └── Assignment3_Report.md    # Full assignment report
 ├── requirements.txt
+|-- Assigment3report.pdf
 └── README.md
 ```
 
