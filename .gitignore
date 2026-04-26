@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+.env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data directories (too large for git)
+data/
+datasets/
+
+# Model checkpoints (large binary files)
+models/saved/*.pth
+models/saved/*.npy
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Results (generated, can be re-created)
+# Keep results/ tracked for submission but ignore temp files
+results/figures/*.png

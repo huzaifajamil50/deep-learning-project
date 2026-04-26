@@ -1,0 +1,88 @@
+# ============================================================
+# Configuration for DCASE 2023 Task 2 ASD Experiments
+# Anomalous Sound Detection for Machine Condition Monitoring
+# ============================================================
+
+# --- Audio Parameters ---
+audio:
+  sr: 16000               # sampling rate
+  n_fft: 1024             # FFT window size
+  hop_length: 512         # hop length for STFT
+  n_mels: 128             # number of mel filter banks
+  power: 2.0              # power for mel spectrogram
+  fmin: 0                 # minimum frequency for mel
+  fmax: 8000              # maximum frequency for mel
+  duration: 10            # clip duration in seconds
+  frames: 5               # number of consecutive frames as input
+  dims: 640               # input dimension = n_mels * frames
+
+# --- Baseline Autoencoder ---
+baseline_ae:
+  input_dim: 640
+  hidden_dims: [128, 128, 128, 128]
+  latent_dim: 8
+  activation: "relu"
+  use_batch_norm: true
+  dropout: 0.0
+
+# --- Improved Autoencoder (Proposed) ---
+improved_ae:
+  input_dim: 640
+  hidden_dims: [128, 128, 128, 128]
+  latent_dim: 8
+  activation: "relu"
+  use_batch_norm: true
+  dropout: 0.1
+  use_skip_connections: true
+  use_attention: true
+  attention_reduction: 4   # SE-block reduction ratio
+
+# --- Training ---
+training:
+  epochs: 100
+  batch_size: 512
+  learning_rate: 0.001
+  weight_decay: 0.0
+  optimizer: "adam"
+  scheduler: "cosine"      # cosine annealing
+  warmup_epochs: 5
+  early_stopping_patience: 10
+  seed: 42
+
+# --- Loss ---
+loss:
+  type: "mse"               # baseline: "mse", proposed: "combined"
+  spectral_weight: 0.3      # alpha for combined loss (1-alpha for MSE)
+
+# --- Testing ---
+testing:
+  score_mode: "mse"          # "mse" or "mahalanobis"
+  decision_threshold: 0.5
+
+# --- Dataset ---
+dataset:
+  # DCASE 2023 development dataset
+  dcase2023_root: "data/dcase2023t2/dev_data"
+  dcase2023_machine_types:
+    - "bearing"
+    - "fan"
+    - "gearbox"
+    - "slider"
+    - "ToyCar"
+    - "ToyTrain"
+    - "valve"
+
+  # MIMII additional dataset (for assignment 3)
+  mimii_root: "data/mimii"
+  mimii_machine_types:
+    - "fan"
+    - "pump"
+    - "slider"
+    - "valve"
+
+# --- Paths ---
+paths:
+  model_dir: "models/saved"
+  result_dir: "results"
+  figure_dir: "results/figures"
+  log_dir: "logs"
